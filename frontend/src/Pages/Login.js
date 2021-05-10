@@ -11,7 +11,7 @@ export default class Login extends Component {
           password: '',
         };
         this.onChange = this.onChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
       }
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
@@ -25,13 +25,13 @@ export default class Login extends Component {
             password: this.state.password,
         }).then(function (res){
             console.log(res)
-            localStorage.setItem('token', res.data.access);
-            localStorage.setItem('user', res.config.data);
+            // localStorage.setItem('token', res.data.access);
+            // localStorage.setItem('user', res.config.data);
         }).catch(error => {
             if (error.response) {
 				// The request was made and the server responded with a status code
 				// that falls out of the range of 2xx
-				console.log(error.response.data["email"]);
+				console.log("response:", error.response);
 				// console.log(error.response.status);
 				// console.log(error.response.headers);
 			} else if (error.request) {
@@ -39,7 +39,7 @@ export default class Login extends Component {
 				// `error.request` is an instance of XMLHttpRequest in the
 				// browser and an instance of
 				// http.ClientRequest in node.js
-				console.log(error.request);
+				console.log("request:", error.request);
 			} else {
 				// Something happened in setting up the request that triggered an Error
 				console.log('Error', error.message);

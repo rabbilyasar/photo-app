@@ -20,3 +20,16 @@ class AlbumSerializer(serializers.ModelSerializer):
     class Meta:
         model = Album
         fields = '__all__'
+
+
+class UserSerializer(serializers.ModelSerializer):
+    albums = AlbumSerializer(many=True, read_only=True)
+    images = ImageSerializer(many=True, read_only=True)
+
+    class Meta:
+        """
+        albums: The associated Albums to this User.
+        images: The associated Photos to this User.
+        """
+        model = User
+        fields = ('id','email', 'name', 'albums', 'images')

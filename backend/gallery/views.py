@@ -1,6 +1,7 @@
+from django.contrib.auth import get_user_model
 from django.shortcuts import render
 from .models import Image, Album
-from .serializers import ImageSerializer, AlbumSerializer
+from .serializers import ImageSerializer, AlbumSerializer, UserSerializer
 from rest_framework import generics, permissions, status
 from rest_framework import status
 from rest_framework.response import Response
@@ -8,6 +9,8 @@ from .permissions import IsOwnerOrReadOnly
 from rest_framework.decorators import api_view
 from rest_framework.reverse import reverse
 
+
+User = get_user_model()
 
 @api_view(['GET'])
 def api_root(request, format=None):
@@ -53,7 +56,23 @@ class AlbumDetail(generics.RetrieveUpdateDestroyAPIView):
     def delete(self, request, *args, **kwargs):
         album = self.get_object()
         if album.images.exists():
-            return Response({'permission': 'You cannot delete an Album that has phots.'},
+            return Response({'permission': 'You cannot delete an Album that has photos.'},
                             status=status.HTTP_400_BAD_REQUEST)
         else:
             album.delete()
+
+
+class UserList(generics.ListAPIView):
+    """
+    List Users in the system.
+    """
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class UserDetail(generics.RetrieveAPIView):
+    """
+    Retrieve User details.
+    """
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
