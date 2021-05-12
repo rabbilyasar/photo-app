@@ -10,7 +10,7 @@ step 2. Make a superuser. <br/>
 ### Start server
 ```python manage.py runserver 0.0.0.0:8000``` <br/>
 ### Run test
-```python manage.py runtest```
+```python manage.py test```
 
 ### API endpoint
 ### Albums
