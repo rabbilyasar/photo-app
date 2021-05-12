@@ -25,7 +25,7 @@ class Album(models.Model):
 class Image(models.Model):
     title = models.CharField(max_length=255)
     image = models.ImageField(upload_to='images/')
-    album = models.ForeignKey(Album, related_name='album', on_delete=models.CASCADE)
+    album = models.ForeignKey(Album, related_name='images', on_delete=models.CASCADE)
     user = models.ForeignKey(User, related_name='images', on_delete=models.CASCADE)
     url = models.URLField(null=True, blank=True)
     thumbnailUrl = models.URLField(null=True, blank=True)

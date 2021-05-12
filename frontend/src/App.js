@@ -1,32 +1,31 @@
 import './App.css';
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
-import Login from './Pages/Login'
-import NotFound from './Pages/NotFound'
-import Register from './Pages/Register'
-import Dashboard from './Pages/Dashboard'
+import Login from './containers/Login'
+import NotFound from './containers/NotFound'
+import Signup from './containers/Register'
+import Home from './containers/Home'
 
+import { Provider } from 'react-redux'
+import store from './store'
+
+import Layout from '.hocs/Layout'
 
 function App() {
   return (
-    <Router>
-      <Navbar bg="dark" variant="dark" expand="lg">
-        <Navbar.Brand href="#home">Photo App</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-            <Nav.Link href='/login'>Login</Nav.Link>
-            <Nav.Link href='/register'>Register</Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
-      <Switch>
-          {/* <Route exact path="/" component={Dashboard} /> */}
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-          {/* <Route component={NotFound} /> */}
-      </Switch>
-    </Router>
+    <div id="App">
+      <Provider store={store}>
+        <Router>
+            <Layout>
+                <Switch>
+                    <Route exact path='/' component={Home} />
+                    <Route exact path='/login' component={Login} />
+                    <Route exact path='/signup' component={Signup} />
+                </Switch>
+            </Layout>
+        </Router>
+      </Provider>
+    </div>
   );
 }
 

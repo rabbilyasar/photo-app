@@ -5,6 +5,7 @@ from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import generics, mixins
+from rest_framework.views import APIView
 
 from . import serializers
 from .utils import get_and_authenticate_user
@@ -23,6 +24,7 @@ class AuthViewSet(viewsets.GenericViewSet):
 
     @action(methods=['POST', ], detail=False)
     def login(self, request):
+        print(request.data)
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = get_and_authenticate_user(**serializer.validated_data)

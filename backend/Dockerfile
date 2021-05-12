@@ -3,12 +3,22 @@ LABEL key="Rabbil Yasar"
 
 ENV PYTHONBUFFERED 1
 
-COPY ./requirements.txt /requirements.txt
-RUN pip install -r /requirements.txt
-
-RUN mkdir /appm
 WORKDIR /app
-COPY ./app /app
+ADD ./backend/requirements.txt /app/backend/
+
+RUN pip install --upgrade pip
+RUN pip install gunicorn
+RUN pip install -r backend/requirements.txt
+
+
+
+# ADD ./docker /app/docker
+# ADD ./backend /app/backend
+
+COPY . .
+
+# RUN python manage.py makemigrations
+# RUN python manage.py migrate
 
 RUN useradd -ms /bin/bash user
 USER user

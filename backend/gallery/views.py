@@ -42,7 +42,11 @@ class ImageDetail(generics.RetrieveUpdateDestroyAPIView):
 class AlbumList(generics.ListCreateAPIView):
     queryset = Album.objects.all()
     serializer_class = AlbumSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticated,)
+
+    # def list(self, request):
+    #     album = self.get_object()
+    #     print(request)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
